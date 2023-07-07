@@ -21,12 +21,12 @@ You must have <a href="https://nodejs.org/en/download"><strong>Nodejs</strong></
 1. Clone the repo
 
    ```sh
-   git clone https://github.com/hatz02/PhoenixAPI/tree/main
+   git clone https://github.com/PierreCrb/PhoenixAPI-Nodejs-Typescript/tree/main
    ```
 2. Install NPM packages
 
    ```sh
-   cd nodejs && npm install
+   npm install
    ```
 3. Enter your Phoenix port in `config.json`
 
