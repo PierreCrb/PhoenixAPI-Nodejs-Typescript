@@ -75,6 +75,7 @@ class PhoenixAPI {
   public close(): void {
     if (this.isWorkerRunning()) {
       this._do_work = false;
+      this._socket.destroy();
       this._worker.terminate();
     }
   }
