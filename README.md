@@ -32,7 +32,7 @@ You must have <a href="https://nodejs.org/en/download"><strong>Nodejs</strong></
 
    ```js
    {
-      "port": 111111,
+      "port": 11111,
       "host": "127.0.0.1"
    }
    ```
