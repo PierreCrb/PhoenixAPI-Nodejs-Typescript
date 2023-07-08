@@ -4,9 +4,7 @@
 
   <p align="center">
     Developed by <a href="https://0xpierre.com/"><strong>0xPierre</strong></a>
-    </p>
-
-<!-- GETTING STARTED -->
+   </p>
 
 ## Getting Started
 
@@ -37,8 +35,6 @@ You must have <a href="https://nodejs.org/en/download"><strong>Nodejs</strong></
    }
    ```
 
-<!-- USAGE EXAMPLES -->
-
 ## Usage
 
 1. Start API
@@ -49,7 +45,7 @@ You must have <a href="https://nodejs.org/en/download"><strong>Nodejs</strong></
 
    ```sh
    {
-       "packet": "",
-       "type: 1
+      [17:21:17] [RECV] stat 16258 16108 4152 7589 0 1458
+      [17:23:26] [SEND] walk 15 15 1 12
    }
    ```

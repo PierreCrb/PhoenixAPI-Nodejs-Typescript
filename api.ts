@@ -1,5 +1,4 @@
 import * as net from "net";
-import { Worker } from "worker_threads";
 import config from "./config.json";
 
 enum Type {
@@ -30,7 +29,7 @@ class PhoenixAPI {
   private _socket: net.Socket;
   private _do_work: boolean;
   private _messages: string[];
-  private _worker: Worker;
+  public data: string = "";
 
   constructor(port: number) {
     this._socket = new net.Socket();
@@ -38,10 +37,26 @@ class PhoenixAPI {
 
     this._do_work = true;
     this._messages = [];
-    this._worker = new Worker("./worker.js", { workerData: null });
-    this._worker.on("message", this._handleMessage);
-    this._worker.on("error", this._handleError);
-    this._worker.on("exit", this._handleExit);
+
+    this._socket.on("data", (buffer) => {
+      this.data += buffer.toString();
+      let delim_pos = this.data.indexOf("\x01");
+
+      while (delim_pos !== -1) {
+        const msg = this.data.substring(0, delim_pos);
+        this.data = this.data.substring(delim_pos + 1);
+        this._messages.push(msg);
+        delim_pos = this.data.indexOf("\x01");
+      }
+    });
+
+    this._socket.on("error", (err) => {
+      console.error("Socket error:", err);
+    });
+
+    this._socket.on("close", () => {
+      console.log("Socket closed");
+    });
   }
 
   private _sendData(data: string): number {
@@ -60,23 +75,10 @@ class PhoenixAPI {
     return this._do_work;
   }
 
-  private _handleMessage = (msg: any): void => {
-    this._messages.push(msg);
-  };
-
-  private _handleError = (err: Error): void => {
-    console.error("Worker error:", err);
-  };
-
-  private _handleExit = (code: number): void => {
-    console.log("Worker exited with code", code);
-  };
-
   public close(): void {
     if (this.isWorkerRunning()) {
       this._do_work = false;
       this._socket.destroy();
-      this._worker.terminate();
     }
   }
 
@@ -84,7 +86,6 @@ class PhoenixAPI {
     if (this._messages.length === 0) {
       return "";
     }
-
     return this._messages.shift()!;
   }
 
