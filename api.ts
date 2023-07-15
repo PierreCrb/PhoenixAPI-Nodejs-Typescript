@@ -65,7 +65,7 @@ class PhoenixAPI {
     return buffer.length;
   }
 
-  private _wait(ms: number): Promise<void> {
+  _wait(ms: number): Promise<void> {
     return new Promise((resolve) => {
       setTimeout(resolve, ms);
     });
@@ -75,25 +75,25 @@ class PhoenixAPI {
     return this._do_work;
   }
 
-  public close(): void {
+  close(): void {
     if (this.isWorkerRunning()) {
       this._do_work = false;
       this._socket.destroy();
     }
   }
 
-  public get_message(): string {
+  get_message(): string {
     if (this._messages.length === 0) {
       return "";
     }
     return this._messages.shift()!;
   }
 
-  public empty(): boolean {
+  empty(): boolean {
     return this._messages.length === 0;
   }
 
-  public async sendPacket(packet: string): Promise<boolean> {
+  async sendPacket(packet: string): Promise<boolean> {
     const data = {
       type: Type.packet_send,
       packet: packet,
@@ -104,7 +104,7 @@ class PhoenixAPI {
     return (await this._sendData(json_data)) === json_data.length + 1;
   }
 
-  public async recvPacket(packet: string): Promise<boolean> {
+  async recvPacket(packet: string): Promise<boolean> {
     const data = {
       type: Type.packet_recv,
       packet: packet,
@@ -115,7 +115,7 @@ class PhoenixAPI {
     return (await this._sendData(json_data)) === json_data.length + 1;
   }
 
-  public async attackMonster(monsterId: number): Promise<boolean> {
+  async attackMonster(monsterId: number): Promise<boolean> {
     const data = {
       type: Type.attack,
       monster_id: monsterId,
@@ -126,10 +126,7 @@ class PhoenixAPI {
     return (await this._sendData(json_data)) === json_data.length + 1;
   }
 
-  public async usePlayerSkill(
-    monsterId: number,
-    skillId: number
-  ): Promise<boolean> {
+  async usePlayerSkill(monsterId: number, skillId: number): Promise<boolean> {
     const data = {
       type: Type.player_skill,
       monster_id: monsterId,
@@ -141,7 +138,7 @@ class PhoenixAPI {
     return (await this._sendData(json_data)) === json_data.length + 1;
   }
 
-  public async playerWalk(x: number, y: number): Promise<boolean> {
+  async playerWalk(x: number, y: number): Promise<boolean> {
     const data = {
       type: Type.player_walk,
       x: x,
@@ -153,10 +150,7 @@ class PhoenixAPI {
     return (await this._sendData(json_data)) === json_data.length + 1;
   }
 
-  public async usePetSkill(
-    monsterId: number,
-    skillId: number
-  ): Promise<boolean> {
+  async usePetSkill(monsterId: number, skillId: number): Promise<boolean> {
     const data = {
       type: Type.pet_skill,
       monster_id: monsterId,
@@ -168,10 +162,7 @@ class PhoenixAPI {
     return (await this._sendData(json_data)) === json_data.length + 1;
   }
 
-  public async usePartnerSkill(
-    monsterId: number,
-    skillId: number
-  ): Promise<boolean> {
+  async usePartnerSkill(monsterId: number, skillId: number): Promise<boolean> {
     const data = {
       type: Type.partner_skill,
       monster_id: monsterId,
@@ -183,7 +174,7 @@ class PhoenixAPI {
     return (await this._sendData(json_data)) === json_data.length + 1;
   }
 
-  public async petsWalk(x: number, y: number): Promise<boolean> {
+  async petsWalk(x: number, y: number): Promise<boolean> {
     const data = {
       type: Type.pets_walk,
       x: x,
@@ -195,7 +186,7 @@ class PhoenixAPI {
     return (await this._sendData(json_data)) === json_data.length + 1;
   }
 
-  public async pickUp(itemId: number): Promise<boolean> {
+  async pickUp(itemId: number): Promise<boolean> {
     const data = {
       type: Type.pick_up,
       item_id: itemId,
@@ -206,7 +197,7 @@ class PhoenixAPI {
     return (await this._sendData(json_data)) === json_data.length + 1;
   }
 
-  public async collect(npcId: number): Promise<boolean> {
+  async collect(npcId: number): Promise<boolean> {
     const data = {
       type: Type.collect,
       npc_id: npcId,
@@ -217,7 +208,7 @@ class PhoenixAPI {
     return (await this._sendData(json_data)) === json_data.length + 1;
   }
 
-  public async startBot(): Promise<boolean> {
+  async startBot(): Promise<boolean> {
     const data = {
       type: Type.start_bot,
     };
@@ -227,7 +218,7 @@ class PhoenixAPI {
     return (await this._sendData(json_data)) === json_data.length + 1;
   }
 
-  public async stopBot(): Promise<boolean> {
+  async stopBot(): Promise<boolean> {
     const data = {
       type: Type.stop_bot,
     };
@@ -237,7 +228,7 @@ class PhoenixAPI {
     return (await this._sendData(json_data)) === json_data.length + 1;
   }
 
-  public async continueBot(): Promise<boolean> {
+  async continueBot(): Promise<boolean> {
     const data = {
       type: Type.continue_bot,
     };
@@ -247,7 +238,7 @@ class PhoenixAPI {
     return (await this._sendData(json_data)) === json_data.length + 1;
   }
 
-  public async loadSettings(settingsPath: string): Promise<boolean> {
+  async loadSettings(settingsPath: string): Promise<boolean> {
     const data = {
       type: Type.load_settings,
       path: settingsPath,
@@ -258,7 +249,7 @@ class PhoenixAPI {
     return (await this._sendData(json_data)) === json_data.length + 1;
   }
 
-  public async startMinigameBot(): Promise<boolean> {
+  async startMinigameBot(): Promise<boolean> {
     const data = {
       type: Type.start_minigame_bot,
     };
@@ -268,7 +259,7 @@ class PhoenixAPI {
     return (await this._sendData(json_data)) === json_data.length + 1;
   }
 
-  public async stopMinigameBot(): Promise<boolean> {
+  async stopMinigameBot(): Promise<boolean> {
     const data = {
       type: Type.stop_minigame_bot,
     };
@@ -278,7 +269,7 @@ class PhoenixAPI {
     return (await this._sendData(json_data)) === json_data.length + 1;
   }
 
-  public async queryPlayerInformation(): Promise<boolean> {
+  async queryPlayerInformation(): Promise<boolean> {
     const data = {
       type: Type.query_player_info,
     };
@@ -288,7 +279,7 @@ class PhoenixAPI {
     return (await this._sendData(json_data)) === json_data.length + 1;
   }
 
-  public async queryInventory(): Promise<boolean> {
+  async queryInventory(): Promise<boolean> {
     const data = {
       type: Type.query_inventory,
     };
@@ -298,7 +289,7 @@ class PhoenixAPI {
     return (await this._sendData(json_data)) === json_data.length + 1;
   }
 
-  public async querySkillsInfo(): Promise<boolean> {
+  async querySkillsInfo(): Promise<boolean> {
     const data = {
       type: Type.query_skills_info,
     };
@@ -308,7 +299,7 @@ class PhoenixAPI {
     return (await this._sendData(json_data)) === json_data.length + 1;
   }
 
-  public async queryMapEntities(): Promise<boolean> {
+  async queryMapEntities(): Promise<boolean> {
     const data = {
       type: Type.query_map_entities,
     };
