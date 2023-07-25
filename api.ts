@@ -1,7 +1,7 @@
 import * as net from "net";
 import config from "./config.json";
 
-enum Type {
+export enum Type {
   packet_send = 0,
   packet_recv = 1,
   attack = 2,
