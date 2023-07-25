@@ -9,6 +9,7 @@
     "declaration": true,
     "noImplicitAny": true,
     "module": "commonjs",
+    "moduleResolution": "node",
     "target": "es6",
     "types": ["node"],
     "lib": ["es6"]
