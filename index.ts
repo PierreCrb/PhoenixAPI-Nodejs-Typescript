@@ -38,8 +38,6 @@ receiveMessages();
 //   if (!api.empty()) {
 //     await api.playerWalk(x, y);
 //   }
-
-//   setTimeout(() => playerWalk(x, y), 5000);
 // }
 
 // playerWalk(15, 23);
